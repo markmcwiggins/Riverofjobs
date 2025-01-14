@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Row Addition</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    button {
+      padding: 10px 15px;
+      margin: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Dynamic Row Addition Example</h1>
+
+  <table id="dynamicTable">
+    <thead>
+      <tr>
+        <th>Skill</th>
+        <th>Experience</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><input type="text" name="skill[]"></td>
+        <td><input type="text" name="experience[]"></td>
+        <td><button type="button" onclick="removeRow(this)">Remove</button></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button type="button" onclick="addRow()">Add Row</button>
+
+  <script>
+    function addRow() {
+      // Get the table body
+      const tableBody = document.getElementById("dynamicTable").getElementsByTagName("tbody")[0];
+      
+      // Create a new row
+      const newRow = document.createElement("tr");
+
+      // Create columns for the new row
+      const skillCell = document.createElement("td");
+      const experienceCell = document.createElement("td");
+      const actionCell = document.createElement("td");
+
+      // Add input fields to the new cells
+      skillCell.innerHTML = '<input type="text" name="skill[]">';
+      experienceCell.innerHTML = '<input type="text" name="experience[]">';
+      actionCell.innerHTML = '<button type="button" onclick="removeRow(this)">Remove</button>';
+
+      // Append cells to the new row
+      newRow.appendChild(skillCell);
+      newRow.appendChild(experienceCell);
+      newRow.appendChild(actionCell);
+
+      // Append the new row to the table body
+      tableBody.appendChild(newRow);
+    }
+
+    function removeRow(button) {
+      // Get the row containing the clicked button and remove it
+      const row = button.parentNode.parentNode;
+      row.parentNode.removeChild(row);
+    }
+  </script>
+
+</body>
+</html>

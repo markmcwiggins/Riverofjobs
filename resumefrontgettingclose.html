@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Table Form</title>
+    <style>
+        /* General table styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        /* Styling for the header and section */
+        .header {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            color: #4CAF50; /* Green color */
+            margin-top: 20px;
+        }
+
+        .subheader {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333; /* Dark gray color */
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        /* Color at the bottom of the form */
+        .footer {
+            background-color: #4CAF50; /* Same green as header */
+            color: white;
+            padding: 10px;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        /* Add some margin and padding for the inputs */
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin: 4px 0;
+            box-sizing: border-box;
+        }
+
+        /* Button styling */
+        .add-row-btn, input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .add-row-btn:hover, input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        /* Space between rows for easier readability */
+        td {
+            padding: 10px;
+        }
+    </style>
+    <script>
+        function addRow() {
+            // Get the table reference
+            var table = document.getElementById("needsQualificationsTable");
+
+            // Create a new row
+            var newRow = table.insertRow();
+
+            // Create two new cells for the new row (Needs and Qualifications)
+            var needsCell = newRow.insertCell(0);
+            var qualificationsCell = newRow.insertCell(1);
+
+            // Add input fields for the new row
+            needsCell.innerHTML = `<input type="text" name="needs[]" placeholder="Enter Need" required>`;
+            qualificationsCell.innerHTML = `<input type="text" name="qualifications[]" placeholder="Enter Qualification" required>`;
+        }
+    </script>
+</head>
+<body>
+
+    <!-- Header section with "Your Needs | My Qualifications" -->
+    <div class="header">
+        Your Needs | My Qualifications
+    </div>
+
+    <!-- Needs and Qualifications Form Title -->
+    <h1>Needs and Qualifications Form</h1>
+
+    <!-- Start of the form -->
+    <form action="/submit" method="post">
+        
+        <!-- Table for Needs and Qualifications -->
+        <table id="needsQualificationsTable">
+            <thead>
+                <tr>
+                    <th>Your Needs</th>
+                    <th>My Qualifications</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="text" name="needs[]" placeholder="Enter Need" required></td>
+                    <td><input type="text" name="qualifications[]" placeholder="Enter Qualification" required></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <br>
+        <!-- Button to add new rows dynamically -->
+        <button type="button" class="add-row-btn" onclick="addRow()">Add Row</button>
+
+        <br><br>
+        <!-- Submit button -->
+        <input type="submit" value="Submit">
+    </form>
+
+    <!-- Footer section with color at the bottom -->
+    <div class="footer">
+        Thank you for reviewing my qualifications!
+    </div>
+
+</body>
+</html>

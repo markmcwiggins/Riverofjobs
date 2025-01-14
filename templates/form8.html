@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Table Form</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        input[type="text"], input[type="submit"] {
+            padding: 8px;
+            margin: 5px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            width: 95%;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Needs and Qualifications Form</h1>
+    <form action="/submit" method="POST">
+        <h2>Job Seeker Information</h2>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" placeholder="Enter your name" required><br><br>
+
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address" placeholder="Enter your address" required><br><br>
+
+        <label for="job_title">Job Title:</label>
+        <input type="text" id="job_title" name="job_title" placeholder="Enter desired job title" required><br><br>
+
+        <h2>Needs and Qualifications</h2>
+        <table id="needsQualificationsTable">
+            <thead>
+                <tr>
+                    <th>Needs</th>
+                    <th>Qualifications</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Initial row for Needs and Qualifications -->
+                <tr>
+                    <td><input type="text" name="needs[]" placeholder="Enter Need" required></td>
+                    <td><input type="text" name="qualifications[]" placeholder="Enter Qualification" required></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <button type="button" onclick="addRow()">Add Row</button><br><br>
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+        function addRow() {
+            var table = document.getElementById("needsQualificationsTable");
+            var newRow = table.insertRow();
+            var needsCell = newRow.insertCell(0);
+            var qualificationsCell = newRow.insertCell(1);
+            needsCell.innerHTML = `<input type="text" name="needs[]" placeholder="Enter Need" required>`;
+            qualificationsCell.innerHTML = `<input type="text" name="qualifications[]" placeholder="Enter Qualification" required>`;
+        }
+    </script>
+
+</body>
+</html>

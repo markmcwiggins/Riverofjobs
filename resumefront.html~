@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Table Form</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+    <script>
+        function addRow() {
+            // Get the table reference
+            var table = document.getElementById("needsQualificationsTable");
+
+            // Create a new row
+            var newRow = table.insertRow();
+
+            // Create two new cells for the new row (Needs and Qualifications)
+            var needsCell = newRow.insertCell(0);
+            var qualificationsCell = newRow.insertCell(1);
+
+            // Add input fields for the new row
+            needsCell.innerHTML = `<input type="text" name="needs[]" placeholder="Enter Need" required>`;
+            qualificationsCell.innerHTML = `<input type="text" name="qualifications[]" placeholder="Enter Qualification" required>`;
+        }
+    </script>
+</head>
+<body>
+
+    <h1>Needs and Qualifications Form</h1>
+    <form action="submit_form.py" method="POST">
+        <table id="needsQualificationsTable">
+            <thead>
+                <tr>
+                    <th>Needs</th>
+                    <th>Qualifications</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Initial 3 rows -->
+                <tr>
+                    <td><input type="text" name="needs[]" placeholder="Enter Need" required></td>
+                    <td><input type="text" name="qualifications[]" placeholder="Enter Qualification" required></td>
+                </tr>
+                <tr>
+                    <td><input type="text" name="needs[]" placeholder="Enter Need" required></td>
+                    <td><input type="text" name="qualifications[]" placeholder="Enter Qualification" required></td>
+                </tr>
+                <tr>
+                    <td><input type="text" name="needs[]" placeholder="Enter Need" required></td>
+                    <td><input type="text" name="qualifications[]" placeholder="Enter Qualification" required></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <br>
+        <!-- Button to add new row -->
+        <button type="button" onclick="addRow()">Add Row</button>
+
+        <br><br>
+        <!-- Submit button -->
+        <input type="submit" value="Submit">
+    </form>
+
+</body>
+</html>

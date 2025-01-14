@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Table Form</title>
+    <style>
+        /* General Body Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff; /* White background for the table */
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;  /* Light gray border */
+        }
+
+        th {
+            background-color: #4CAF50; /* Green background for headers */
+            color: white;  /* White text */
+            text-align: left;
+            padding: 10px;
+        }
+
+        td {
+            padding: 8px;
+            text-align: left;
+            background-color: #f9f9f9; /* Light gray for table cells */
+        }
+
+        /* Input Fields */
+        input[type="text"] {
+            padding: 8px;
+            margin: 5px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            width: 95%;
+        }
+
+        /* Button Styles */
+        button, input[type="submit"] {
+            background-color: #4CAF50; /* Green background for buttons */
+            color: white;  /* White text */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        /* Hover effect for buttons */
+        button:hover, input[type="submit"]:hover {
+            background-color: #45a049;  /* Darker green on hover */
+        }
+
+        /* Add Row Button */
+        button {
+            background-color: #007bff;  /* Blue background for "Add Row" */
+        }
+
+        /* Hover effect for Add Row Button */
+        button:hover {
+            background-color: #0056b3;  /* Darker blue on hover */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Needs and Qualifications Form</h1>
+    <form action="/submit" method="POST">
+        <table id="needsQualificationsTable">
+            <thead>
+                <tr>
+                    <th>Needs</th>
+                    <th>Qualifications</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Initial 3 rows -->
+                <tr>
+                    <td><input type="text" name="needs[]" placeholder="Enter Need" required></td>
+                    <td><input type="text" name="qualifications[]" placeholder="Enter Qualification" required></td>
+                </tr>
+                <tr>
+                    <td><input type="text" name="needs[]" placeholder="Enter Need" required></td>
+                    <td><input type="text" name="qualifications[]" placeholder="Enter Qualification" required></td>
+                </tr>
+                <tr>
+                    <td><input type="text" name="needs[]" placeholder="Enter Need" required></td>
+                    <td><input type="text" name="qualifications[]" placeholder="Enter Qualification" required></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <br>
+        <!-- Button to add new row -->
+        <button type="button" onclick="addRow()">Add Row</button>
+        <br><br>
+        <!-- Submit button -->
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+        // Check if addRow function is working
+        function addRow() {
+            console.log("Add Row function triggered!"); // Debugging line
+            // Get the table reference
+            var table = document.getElementById("needsQualificationsTable");
+
+            // Create a new row
+            var newRow = table.insertRow();
+
+            // Create two new cells for the new row (Needs and Qualifications)
+            var needsCell = newRow.insertCell(0);
+            var qualificationsCell = newRow.insertCell(1);
+
+            // Add input fields for the new row
+            needsCell.innerHTML = `<input type="text" name="needs[]" placeholder="Enter Need" required>`;
+            qualificationsCell.innerHTML = `<input type="text" name="qualifications[]" placeholder="Enter Qualification" required>`;
+        }
+    </script>
+
+</body>
+</html>
