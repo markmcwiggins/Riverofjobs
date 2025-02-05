@@ -3,118 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resume Builder</title>
+    <title>Job Application Form</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .bar {
-            width: 2px;
-            background-color: #000;
-            margin: 0 10px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        th, td {
-            padding: 10px;
-            border: 1px solid #ddd;
-        }
-        tr:nth-child(odd) {
-            background-color: #99ccff;
-        }
-        tr:nth-child(even) {
-            background-color: #ffff99;
-        }
-        input[type="text"], input[type="email"] {
-            width: 100%;
-            padding: 8px;
-            margin: 5px 0;
-            box-sizing: border-box;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            cursor: pointer;
-            margin-bottom: 20px;
-        }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; }
+        #job-form { width: 100%; max-width: 800px; margin: 0 auto; }
+        .header-section input { width: 100%; margin-bottom: 10px; padding: 5px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; }
+        .bar { border-left: 2px solid black; }
+        .alternating-row:nth-child(odd) { background-color: #d0e7ff; }
+        .alternating-row:nth-child(even) { background-color: #fffacd; }
+        button { margin-top: 10px; padding: 10px; margin-right: 10px; }
     </style>
 </head>
 <body>
-    <form id="resumeForm" action="/generate_resume" method="post">
-        <h2>Personal Information</h2>
-        <input type="text" name="name" placeholder="Full Name" required>
-        <input type="text" name="job_title" placeholder="Job Title" required>
-        <input type="text" name="company" placeholder="Company" required>
-        <input type="text" name="address" placeholder="Address" required>
-        <input type="text" name="city" placeholder="City" required>
-        <input type="text" name="state" placeholder="State" required>
-        <input type="text" name="zip" placeholder="ZIP" required>
-        <input type="email" name="email" placeholder="Email" required>
+    <form id="job-form" method="POST">
+        <div class="header-section">
+            <input type="text" name="job-title" placeholder="Job Title" required>
+            <input type="text" name="company" placeholder="Company" required>
+            <input type="text" name="user-name" placeholder="User Name" required>
+            <input type="text" name="address" placeholder="Address" required>
+            <input type="text" name="city" placeholder="City" required>
+            <input type="text" name="state" placeholder="State" required>
+            <input type="text" name="zip" placeholder="Zip" required>
+            <input type="email" name="email" placeholder="Email Address" required>
+        </div>
 
-        <h2>Needs and Qualifications</h2>
-        <table id="needsQualificationsTable">
+        <table id="needs-qualifications">
             <tr>
                 <th>Needs</th>
-                <th class="bar"></th>
-                <th>Qualifications</th>
+                <th class="bar">Qualifications</th>
             </tr>
         </table>
-        <button type="button" onclick="addRow('needsQualificationsTable')">Add Needs/Qualifications</button>
+        <div id="needs-quals-section"></div>
+        <button type="button" onclick="addRow('needs-quals-section')">Add Need/Qualification</button>
 
-        <h2>Job History</h2>
-        <table id="jobHistoryTable">
+        <table id="past-jobs">
             <tr>
-                <th>Job Name</th>
-                <th>Company</th>
-                <th>Contract House</th>
-                <th>Role</th>
-                <th>Location</th>
-                <th>Dates</th>
+                <th>Job Details</th>
+                <th class="bar">Additional Information</th>
             </tr>
         </table>
-        <button type="button" onclick="addRow('jobHistoryTable')">Add Job</button>
+        <div id="past-jobs-section"></div>
+        <button type="button" onclick="addRow('past-jobs-section')">Add Past Job</button>
 
-        <button type="submit">Generate Resume</button>
+        <br><br>
+        <button type="submit">Generate PDF</button>
     </form>
 
     <script>
-        function addRow(tableId) {
-            var table = document.getElementById(tableId);
-            var newRow = table.insertRow(-1);
+        function addRow(sectionId) {
+            var section = document.getElementById(sectionId);
+            var div = document.createElement("div");
+            div.className = "alternating-row";
             
-            if (tableId === 'needsQualificationsTable') {
-                newRow.innerHTML = `
-                    <td><input type="text" name="needs[]"></td>
-                    <td class="bar"></td>
-                    <td><input type="text" name="qualifications[]"></td>
-                `;
-            } else if (tableId === 'jobHistoryTable') {
-                newRow.innerHTML = `
-                    <td><input type="text" name="job_name[]"></td>
-                    <td><input type="text" name="job_company[]"></td>
-                    <td><input type="text" name="contract_house[]"></td>
-                    <td><input type="text" name="role[]"></td>
-                    <td><input type="text" name="location[]"></td>
-                    <td>
-                        <input type="text" name="start_date[]" style="width: 45%;">
-                        <span class="bar" style="display: inline-block;"></span>
-                        <input type="text" name="end_date[]" style="width: 45%;">
-                    </td>
-                `;
+            if (sectionId === 'needs-quals-section') {
+                div.innerHTML = '<input type="text" name="needs[]" placeholder="Need" required>' +
+                                '<input type="text" name="qualifications[]" placeholder="Qualification" required class="bar">';
+            } else if (sectionId === 'past-jobs-section') {
+                div.innerHTML = '<input type="text" name="job_name[]" placeholder="Job Name" required>' +
+                                '<input type="text" name="contract_house[]" placeholder="Contract House">' +
+                                '<input type="text" name="role[]" placeholder="Role" required>' +
+                                '<input type="text" name="location[]" placeholder="Location" required>' +
+                                '<input type="text" name="dates[]" placeholder="Dates" required class="bar">';
             }
+            
+            section.appendChild(div);
         }
-
-        // Add initial rows
-        addRow('needsQualificationsTable');
-        addRow('jobHistoryTable');
     </script>
 </body>
 </html>
